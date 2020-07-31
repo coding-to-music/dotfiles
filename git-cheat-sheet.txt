@@ -226,3 +226,14 @@ $ git rm <file Name>
 Remove files from the Git But keep the files in your local repository:
 $ git rm --cached
 
+# Minikube
+minikube status
+minikube start
+minikube stop
+minikube service list
+minikube ip
+# Kubectl 
+k get pods -n monitoring # -n namespace
+k get pods --all-namespaces
+k get svc -n monitoring # -n namespace
+k get svc --all-namespaces
