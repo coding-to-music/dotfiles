@@ -20,6 +20,12 @@
 alias ll='ls -latF'
 alias hi='history'
 
+alias k=kubectl
+complete -F __start_kubectl k
+
+source <(kubectl completion bash)                     # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+
 # General
 alias dve="docker -v"
 alias dl="docker login --username=dragol" 
