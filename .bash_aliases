@@ -19,6 +19,7 @@
 # some common general aliases
 alias ll='ls -latF'
 alias hi='history'
+alias hs='history 16 | head -n 15'
 
 alias k=kubectl
 complete -F __start_kubectl k
