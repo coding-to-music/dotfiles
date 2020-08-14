@@ -20,6 +20,8 @@
 alias ll='ls -latF'
 alias hi='history'
 alias hs='history 16 | head -n 15'
+alias kubens='kubectl config set-context --current --namespace ' 
+alias kubectx='kubectl config use-context ' 
 
 alias k=kubectl
 complete -F __start_kubectl k
