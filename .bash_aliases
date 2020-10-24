@@ -20,7 +20,7 @@
 alias ll='ls -latF'
 alias hi='history'
 alias hs='history 31 | head -n 30'
-alias sc 'source ~/.bashrc'
+alias sc='source ~/.bashrc'
 # alias kubens='kubectl config set-context --current --namespace ' 
 # alias kubectx='kubectl config use-context ' 
 
