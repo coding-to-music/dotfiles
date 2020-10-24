@@ -1,4 +1,4 @@
-# My Docker aliases / cheat-sheet testing
+# My Docker aliases / cheat-sheet
 # --
 # by Dragoljub Bogićević Apr 8 2020 ・ 2 min read
 # https://dev.to/bogicevic7/my-docker-aliases-cheat-sheet-4bo9
@@ -19,15 +19,16 @@
 # some common general aliases
 alias ll='ls -latF'
 alias hi='history'
-alias hs='history 16 | head -n 15'
-alias kubens='kubectl config set-context --current --namespace ' 
-alias kubectx='kubectl config use-context ' 
+alias hs='history 31 | head -n 30'
+alias sc 'source ~/.bashrc'
+# alias kubens='kubectl config set-context --current --namespace ' 
+# alias kubectx='kubectl config use-context ' 
 
-alias k=kubectl
-complete -F __start_kubectl k
+# alias k=kubectl
+# complete -F __start_kubectl k
 
-source <(kubectl completion bash)                     # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+# source <(kubectl completion bash)                     # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+# echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 
 # Terraform
 alias tf='terraform'
