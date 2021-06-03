@@ -9,79 +9,79 @@
 
 [![Travis branch](https://img.shields.io/travis/envygeeks/jekyll-docker/master.svg?style=for-the-badge)](https://travis-ci.org/envygeeks/jekyll-docker) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate) [![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]() [![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
 
-# Jekyll Docker
+# mySpinx Docker
 
-Jekyll Docker is a software image that has Jekyll and many of its dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about Jekyll, you can visit https://github.com/jekyll/jekyll
+mySpinx Docker is a software image that has Sphinx and many of its dependencies ready to use for you in an encapsulated format.  If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about mySpinx, you can visit https://github.com/jekyll/jekyll
 
 ## Image Types
 
-* `jekyll/jekyll`: Default image.
-* `jekyll/minimal`: Very minimal image.
-* `jekyll/builder`: Includes tools.
+* `mySpinx/mySpinx`: Default image.
+* `mySpinx/mySpinx`: Very minimal image.
+* `mySpinx/mySpinx`: Includes tools.
 
 ### Standard
 
-The standard images (`jekyll/jekyll`) include a default set of "dev" packages, along with Node.js, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
+The standard images (`mySpinx/mySpinx`) include a default set of "dev" packages, along with Node.js, and other stuff that makes mySpinx easy.  
 
 #### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export mySpinx_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
-  jekyll build
+  --volume="$PWD:/srv/mySpinx" \
+  -it mySpinx/mySpinx:$mySpinx_VERSION \
+  html build
 ```
 
 ### Builder
 
-The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
+The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their mySpinx builds to another server with a CI.
 
 #### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export mySpinx_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
-  -it jekyll/builder:$JEKYLL_VERSION \
-  jekyll build
+  --volume="$PWD:/srv/mySpinx" \
+  -it mySpinx/builder:$mySpinx_VERSION \
+  mySpinx build
 ```
 
 ### Minimal
 
-The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
+The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but mySpinx.
 
 #### Usage
 
 ***You will need to provide a `.apk` file if you intend to use anything like Nokogiri or otherwise, we do not install any development headers or dependencies so C based gems will fail to install.***
 
 ```sh
-export JEKYLL_VERSION=3.8
+export mySpinx_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
-  -it jekyll/minimal:$JEKYLL_VERSION \
-  jekyll build
+  --volume="$PWD:/srv/mySpinx" \
+  -it mySpinx/minimal:$mySpinx_VERSION \
+  mySpinx build
 ```
 
 ## Dependencies
 
-Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 3.8"` so that minor versions are installed if you use say image tag "3.7.3").
+mySpinx Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including mySpinx if you have a version that does not match the version of the image you are using (you should be doing `gem "mySpinx", "~> 3.8"` so that minor versions are installed if you use say image tag "3.7.3").
 
 ### Updating
 
 If you provide a `Gemfile` and would like to update your `Gemfile.lock` you can run
 
 ```sh
-export JEKYLL_VERSION=3.8
+export mySpinx_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  --volume="$PWD:/srv/mySpinx" \
+  -it mySpinx/mySpinx:$mySpinx_VERSION \
   bundle update
 ```
 
 ### Caching
 
-You can enable caching in Jekyll Docker by using a `docker --volume` that points to `/usr/local/bundle` inside of the image.  This is ideal for users who run builds on CI's and wish them to be fast.
+You can enable caching in mySpinx Docker by using a `docker --volume` that points to `/usr/local/bundle` inside of the image.  This is ideal for users who run builds on CI's and wish them to be fast.
 
 #### My Gems Aren't Caching
 
@@ -90,28 +90,28 @@ You can enable caching in Jekyll Docker by using a `docker --volume` that points
 ### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export mySpinx_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/mySpinx" \
   --volume="$PWD/vendor/bundle:/usr/local/bundle" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
-  jekyll build
+  -it mySpinx/mySpinx:$mySpinx_VERSION \
+  mySpinx build
 ```
 ***The root of the cache volume (in this case vendor) must also be excluded from the Jekyll build via the `_config.yml` exclude array setting.***
 
 ## Configuration
 
-You can configure some pieces of Jekyll using environment variables, what you cannot with environment variables you can configure using the Jekyll CLI.  Even with a wrapper, we pass all arguments onto Jekyll when we finally call it.
+You can configure some pieces of mySpinx using environment variables, what you cannot with environment variables you can configure using the mySpinx CLI.  Even with a wrapper, we pass all arguments onto mySpinx when we finally call it.
 
 | ENV Var | Default |
 |---|---|
-| `JEKYLL_UID` | `1000` |
-| `JEKYLL_GID` | `1000` |
-| `JEKYLL_DEBUG`, | `""` |
+| `mySpinx_UID` | `1000` |
+| `mySpinx_GID` | `1000` |
+| `mySpinx_DEBUG`, | `""` |
 | `VERBOSE` | `""` |
 | `FORCE_POLLING` | `""` |
 
-If you would like to know the CLI options for Jekyll, you can visit [Jekyll's Help Site][2]
+If you would like to know the CLI options for mySpinx, you can visit [mySpinx's Help Site][2]
 
 ## Packages
 
