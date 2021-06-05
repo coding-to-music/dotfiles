@@ -36,6 +36,16 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   lftp \
   git
 
+RUN apt-get update && apt-get install -y \
+    rsync \
+    openssh-client \
+    python \
+    python-pip \
+    texlive
+
+RUN pip install virtualenv
+
+CMD ["/bin/bash"]
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
