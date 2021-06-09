@@ -193,9 +193,9 @@ ansible --version
 
 # echo "192.241.xx.xx  venus.example.com venus" >> /etc/hosts
 
-echo "[TestClient]" >> /etc/ansible/hosts
-echo "node1 ansible_ssh_host=143.198.160.64" >> /etc/ansible/hosts
-echo "node2 ansible_ssh_host=143.198.117.216" >> /etc/ansible/hosts
+# echo "[TestClient]" >> /etc/ansible/hosts
+# echo "node1 ansible_ssh_host=143.198.160.64" >> /etc/ansible/hosts
+# echo "node2 ansible_ssh_host=143.198.117.216" >> /etc/ansible/hosts
 
 
 
