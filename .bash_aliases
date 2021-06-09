@@ -16,6 +16,8 @@
 # if command is related to images then next letter of alias is i, for containers is c and so on...
 # following this pattern I found it pretty easy to remember all aliases
 # 
+export PATH=$PATH:$HOME/.arkade/bin/
+
 # some common general aliases
 alias ll='ls -latF'
 alias hi='history'
