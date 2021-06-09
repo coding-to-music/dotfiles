@@ -14,7 +14,7 @@ if [ ! "$?" -eq 0 ] ; then
 	fi
 fi
 
-# Make sure we’re using the latest eapt
+# Make sure we’re using the latest 
 apt update
 
 # Upgrade any already-installed formulae
@@ -36,7 +36,7 @@ apt install coreutils
 # Create a directory for the public keys
 
 # In root
-mkdir ~/.ssh
+# mkdir ~/.ssh
 
 # chmod 700 .ssh
 # cd .ssh
@@ -48,12 +48,12 @@ mkdir ~/.ssh
 # Create SSH Key for Github
 # Now you need to create your SSH key for Github
 
-ssh-keygen -t rsa -C “connors.tom@gmail.com”
+# ssh-keygen -t rsa -C “connors.tom@gmail.com”
 
 # After ssh-keygen
 
 # display the ssh public key so you can copy it
-cat id_rsa.pub
+# cat id_rsa.pub
 
 # It will get saved to
 # home/tom/.ssh/id_rsa             // this is the private key, very long paragraph
@@ -157,6 +157,8 @@ curl -sLS https://dl.get-arkade.dev | sudo sh
 
 arkade --help
 
+arkade get docker-compose doctl faas-cli gh helm kind kubectl 
+
 # ---------------------------------------------
 # More Tools I use often
 # ---------------------------------------------
@@ -177,8 +179,25 @@ ansible --version
 # sudo nano /etc/ansible/hosts
 # Add the following:
 
+
 # [TestClient]
 # node1 ansible_ssh_host=192.168.0.12
+
+# Make sure to use the -i option of sed.
+
+# -i[SUFFIX], --in-place[=SUFFIX]
+#   edit files in place (makes backup if extension supplied)
+
+# sed -i "2i192.241.xx.xx  venus.example.com venus" /etc/hosts
+# Otherwise,
+
+# echo "192.241.xx.xx  venus.example.com venus" >> /etc/hosts
+
+echo "[TestClient]" >> /etc/ansible/hosts
+echo "node1 ansible_ssh_host=143.198.160.64" >> /etc/ansible/hosts
+echo "node2 ansible_ssh_host=143.198.117.216" >> /etc/ansible/hosts
+
+
 
 # The next step is to copy the newly generated key to the other system. Run this command:
 
@@ -192,7 +211,8 @@ ansible --version
 
 # Run this command to test the connection:
 
-# ansible -m ping TestClient
+ansible -m ping TestClient
+
 # Output:
 
 # node1 | SUCCESS => {
@@ -212,8 +232,63 @@ apt install doctl $OPTIONS
 # Yarn - an alternative to npm
 apt install yarn $OPTIONS
 
+# ---------------------------------------------------------
 # Docker for containerization
-apt install docker $OPTIONS
+# ---------------------------------------------------------
+# apt install docker $OPTIONS
+
+# Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+sudo apt-get update
+
+sudo apt-get install \
+	apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+# Add Docker’s official GPG key:
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Use the following command to set up the stable repository. To add the nightly or test repository, add the word nightly or test (or both) after the word stable in the commands below. Learn about nightly and test channels.
+
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker Engine
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+# Verify that Docker Engine is installed correctly by running the hello-world image as sudo
+
+sudo docker run hello-world
+
+# Manage Docker as a non-root user
+
+# To create the docker group and add your user:
+
+# Create the docker group.
+
+newgrp docker 
+
+sudo groupadd docker
+
+# Add your user to the docker group.
+
+sudo usermod -aG docker $USER
+
+# Verify that you can run docker commands without sudo.
+
+docker run hello-world
+
+# ---------------------------------------------
+# Misc
+# ---------------------------------------------
 
 # htop
 apt install htop $OPTIONS
@@ -231,9 +306,6 @@ apt install tree $OPTIONS
 # apt install gdb
 
 
-# ---------------------------------------------
-# Misc
-# ---------------------------------------------
 
 # Zsh 
 # apt install zsh
