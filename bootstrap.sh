@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+OPTIONS="-y -q"
+
 # Install command-line tools using Homeapt.
 
-. "$( pwd )/utils.exclude.sh"
+# . "$( pwd )/utils.exclude.sh"
 
 # Install homeapt if it is not installed
 which apt 1>&/dev/null
@@ -15,10 +17,10 @@ if [ ! "$?" -eq 0 ] ; then
 fi
 
 # Make sure we’re using the latest 
-apt update
+apt update $OPTIONS
 
 # Upgrade any already-installed formulae
-apt upgrade
+apt upgrade $OPTIONS
 
 
 # ---------------------------------------------
@@ -26,7 +28,7 @@ apt upgrade
 # ---------------------------------------------
 
 # Core Utils
-apt install coreutils
+apt install coreutils $OPTIONS
 
 # ---------------------------------------------
 # SSH Keys
@@ -90,7 +92,6 @@ ssh -vT git@github.com
 # Programming Languages and Frameworks
 # ---------------------------------------------
 
-OPTIONS="-y"
 
 # NodeJS 
 apt install node $OPTIONS
@@ -167,7 +168,11 @@ arkade get docker-compose doctl faas-cli gh helm kind kubectl
 apt install kubectl $OPTIONS
 
 # GitHub CLI gh 
-apt install gh $OPTIONS
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh $OPTIONS
+
 
 # ansible 
 apt install ansible $OPTIONS
