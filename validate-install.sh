@@ -52,3 +52,6 @@ docker run hello-world
 echo "Show directory structure with excellent formatting"
 # apt install tree $OPTIONS
 tree --version
+
+echo "validate golang install"
+go --version
