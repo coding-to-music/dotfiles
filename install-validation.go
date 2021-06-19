@@ -17,10 +17,18 @@ type InstallItems struct {
 // OPTIONS="-y -q"
 
 var (
-	Info = Teal
-	Warn = Yellow
-	Fata = Red
+	Info  = Teal
+	Warn  = Yellow
+	Fatal = Red
+
+	descColor        = Teal
+	installcmdColor  = Yellow
+	validatecmdColor = Red
+	successColor     = Green
+	errorColor       = Red
 )
+
+// resultingOutputColor = is successColor or errorColor
 
 var (
 	Black   = Color("\033[1;30m%s\033[0m")
@@ -45,23 +53,25 @@ var InstallItemsCity = []InstallItems{
 	{"always good to update the package manager apt",
 		"sudo apt update",
 		"sudo apt update"},
-	{"see how we are configured with GitHub", "git config --list", "git config --list"},
-	{"Check that GitHub can be reached via SSH", "ssh -vT git@github.com", "ssh -vT git@github.com"},
-	{"NodeJS", "sudo apt install node", "node --version"},
-	{"python", "sudo apt install python", "python --version"},
-	{"python3", "sudo apt install python3", "python3 --version"},
+	{"echo $PATH", "echo $PATH", "echo $PATH"},
+	{"whoami", "whoami", "whoami"},
 	{"ansible", "sudo apt install ansible", "ansible --version"},
-	{"test the ansible connection", "ansible -m ping TestClient", "ansible -m ping TestClient"},
 	{"docker as sudo", "sudo docker run hello-world", "sudo docker run hello-world"},
 	{"docker as regular-user", "docker run hello-world", "docker run hello-world"},
 	{"tree", "sudo apt install tree", "tree --version"},
 	{"ncdu", "sudo apt install ncdu", "ncdu -v"},
 	{"vscode", "code --version", "code --version"},
-	{"kubectl", "kubectl --version", "kubectl --version"},
 	{"kind", "kind --version", "kind --version"},
 	{"doctl", "doctl version", "doctl version"},
+	{"python3", "sudo apt install python3", "python3 --version"},
+	{"see how we are configured with GitHub", "git config --list", "git config --list"},
+	{"Check that GitHub can be reached via SSH", "ssh -vT git@github.com", "ssh -vT git@github.com"},
+	{"NodeJS", "sudo apt install node", "node --version"},
+	{"python", "sudo apt install python", "python --version"},
+	{"kubectl", "kubectl --version", "kubectl --version"},
 	{"golang", "go version", "go version"},
 	{"whereis go", "whereis go", "whereis go"},
+	{"test the ansible connection", "ansible -m ping TestClient", "ansible -m ping TestClient"},
 }
 
 func validate(data_arr []InstallItems) int {
@@ -69,7 +79,9 @@ func validate(data_arr []InstallItems) int {
 	errors := 0
 	for _, elem := range data_arr {
 
-		fmt.Println(Magenta(elem.desc))
+		fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+		fmt.Println(descColor(elem.desc))
+		fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 
 		fmt.Println(Yellow(elem.validatecmd))
 
@@ -80,7 +92,9 @@ func validate(data_arr []InstallItems) int {
 
 		if err != nil {
 			fmt.Println(Red("Error"))
+			fmt.Println(Red("err.Error"))
 			fmt.Println(Red(err.Error()))
+			fmt.Println(Red("string(out)"))
 			fmt.Println(Red(string(out)))
 			errors++
 		}
@@ -96,12 +110,12 @@ func validate(data_arr []InstallItems) int {
 func main() {
 	fmt.Println(Info("Hello World at the command line from server.go"))
 	fmt.Println(Info("Invoke with go run main.go"))
-	fmt.Println(Info("\n"))
+	fmt.Println("\n")
 
 	fmt.Println(Info("hello, Info world!"))
 	fmt.Println(Warn("hello, Warn world!"))
-	fmt.Println(Fata("hello, Fatal world!"))
-	fmt.Println(Info("\n"))
+	fmt.Println(Fatal("hello, Fatal world!"))
+	fmt.Println("\n")
 
 	fmt.Println(Black("hello, Black world!"))
 	fmt.Println(Red("hello, Red world!"))
@@ -112,12 +126,27 @@ func main() {
 	fmt.Println(White("hello, White world!"))
 	fmt.Println(Teal("hello, Teal world!"))
 	fmt.Println(Green("hello, Green need Blue world!"))
-	fmt.Println(Info("\n"))
+	fmt.Println("\n")
+
+	fmt.Println(descColor("hello, descColor world!"))
+
+	// = Teal
+	// installcmdColor  = Yellow
+	// validatecmdColor = Red
+	// successColor     = Green
+	// errorColor       = Red
+
+	fmt.Println("\n")
 
 	fmt.Println("Hello, playground")
+	fmt.Println("\n")
+
 	validate(InstallItemsCity)
-	// fmt.Println(GetTotalWeight(InstallItemsCity))
 }
+
+// resultingOutputColor = is successColor or errorColor
+
+// fmt.Println(GetTotalWeight(InstallItemsCity))
 
 // cmd := exec.Command(app, arg0, arg1, arg2, arg3)
 // app := "echo"
