@@ -144,6 +144,12 @@ func main() {
 	validate(InstallItemsCity)
 }
 
+// report how many attempted, passed, failed
+// add proper install capabilities
+// attempt to validate, if fail then attempt install and validate again
+// flags to control if should attempt install
+// read instructions from external file - save the struct in a different file
+
 // resultingOutputColor = is successColor or errorColor
 
 // fmt.Println(GetTotalWeight(InstallItemsCity))
