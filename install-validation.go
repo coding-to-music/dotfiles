@@ -9,12 +9,25 @@ import (
 )
 
 type InstallItems struct {
-	desc        string
-	installcmd  string
-	validatecmd string
+	run            bool
+	attemptInstall bool
+	desc           string
+	installcmd     string
+	validatecmd    string
 }
 
 // OPTIONS="-y -q"
+
+var (
+	ValidateAvailableCount = 0
+	ValidateRequestedCount = 0
+	ValidateErrorCount     = 0
+	ValidatePassedCount    = 0
+	InstallAvailableCount  = 0
+	InstallRequestedCount  = 0
+	InstallErrorCount      = 0
+	InstallPassedCount     = 0
+)
 
 var (
 	Info  = Teal
@@ -49,29 +62,43 @@ func Color(colorString string) func(...interface{}) string {
 	return sprint
 }
 
+// type InstallItems struct {
+// run            bool
+// attemptInstall bool
+// desc           string
+// installcmd     string
+// validatecmd    string
+
 var InstallItemsCity = []InstallItems{
-	{"always good to update the package manager apt",
+	{true, true, "always good to update the package manager apt",
 		"sudo apt update",
 		"sudo apt update"},
-	{"echo $PATH", "echo $PATH", "echo $PATH"},
-	{"whoami", "whoami", "whoami"},
-	{"ansible", "sudo apt install ansible", "ansible --version"},
-	{"docker as sudo", "sudo docker run hello-world", "sudo docker run hello-world"},
-	{"docker as regular-user", "docker run hello-world", "docker run hello-world"},
-	{"tree", "sudo apt install tree", "tree --version"},
-	{"ncdu", "sudo apt install ncdu", "ncdu -v"},
-	{"vscode", "code --version", "code --version"},
-	{"kind", "kind --version", "kind --version"},
-	{"doctl", "doctl version", "doctl version"},
-	{"python3", "sudo apt install python3", "python3 --version"},
-	{"see how we are configured with GitHub", "git config --list", "git config --list"},
-	{"Check that GitHub can be reached via SSH", "ssh -vT git@github.com", "ssh -vT git@github.com"},
-	{"NodeJS", "sudo apt install node", "node --version"},
-	{"python", "sudo apt install python", "python --version"},
-	{"kubectl", "kubectl --version", "kubectl --version"},
-	{"golang", "go version", "go version"},
-	{"whereis go", "whereis go", "whereis go"},
-	{"test the ansible connection", "ansible -m ping TestClient", "ansible -m ping TestClient"},
+	{true, true, "echo $PATH", "echo $PATH", "echo $PATH"},
+	{false, true, "whoami", "whoami", "whoami"},
+	{false, true, "ansible", "sudo apt install ansible", "ansible --version"},
+	{false, true, "docker as sudo", "sudo docker run hello-world", "sudo docker run hello-world"},
+	{false, true, "docker as regular-user", "docker run hello-world", "docker run hello-world"},
+	{false, true, "tree", "sudo apt install tree", "tree --version"},
+	{false, true, "ncdu", "sudo apt install ncdu", "ncdu -v"},
+	{false, true, "vscode", "code --version", "code --version"},
+	{false, true, "kind", "kind --version", "kind --version"},
+	{false, true, "doctl", "doctl version", "doctl version"},
+	{false, true, "python3", "sudo apt install python3", "python3 --version"},
+	{false, true, "see how we are configured with GitHub", "git config --list", "git config --list"},
+	{true, true, "Check that GitHub can be reached via SSH", "ssh -vT git@github.com", "ssh -vT git@github.com"},
+	{true, true, "NodeJS", "sudo apt install node", "node --version"},
+	{true, true, "python", "sudo apt install python", "python --version"},
+
+	{true, true, "kubectl 0", "kubectl version", "kubectl version"},
+	{true, true, "kubectl 1: Update the apt package index and install packages needed to use the Kubernetes apt repository", "sudo apt-get install -y apt-transport-https ca-certificates curl", "kubectl version"},
+	{true, true, "kubectl 2: Download the Google Cloud public signing key", "sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg", "kubectl version"},
+	{true, true, "kubectl 3: Add the Kubernetes apt repository", "echo 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list", "kubectl version"},
+	{true, true, "kubectl 4: Update apt package index with the new repository and install kubectl", "sudo apt-get install -y kubectl", "kubectl version"},
+	{true, true, "kubectl 5", "kubectl version", "kubectl version"},
+
+	{true, true, "golang", "go version", "go version"},
+	{true, true, "whereis go", "whereis go", "whereis go"},
+	{true, true, "test the ansible connection", "ansible -m ping TestClient", "ansible -m ping TestClient"},
 }
 
 func validate(data_arr []InstallItems) int {
@@ -79,29 +106,61 @@ func validate(data_arr []InstallItems) int {
 	errors := 0
 	for _, elem := range data_arr {
 
-		fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-		fmt.Println(descColor(elem.desc))
-		fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+		ValidateAvailableCount++
 
-		fmt.Println(Yellow(elem.validatecmd))
+		if elem.run {
 
-		out, err := exec.Command("bash", "-cl", elem.validatecmd).Output()
-		// cmd := exec.Command(elem.validatecmd)
-		// cmd := exec.Command(app, elem.installcmd)
-		// stdout, err := cmd.Output()
+			ValidateRequestedCount++
 
-		if err != nil {
-			fmt.Println(Red("Error"))
-			fmt.Println(Red("err.Error"))
-			fmt.Println(Red(err.Error()))
-			fmt.Println(Red("string(out)"))
-			fmt.Println(Red(string(out)))
-			errors++
+			fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			fmt.Println(descColor(elem.desc))
+			fmt.Println(descColor("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+			fmt.Println(Yellow(elem.validatecmd))
+
+			out, err := exec.Command("bash", "-cl", elem.validatecmd).Output()
+			// cmd := exec.Command(elem.validatecmd)
+			// cmd := exec.Command(app, elem.installcmd)
+			// stdout, err := cmd.Output()
+
+			if err != nil {
+				ValidateErrorCount++
+				fmt.Println(Red("Error"))
+				fmt.Println(Red("err.Error"))
+				fmt.Println(Red(err.Error()))
+				fmt.Println(Red("string(out)"))
+				fmt.Println(Red(string(out)))
+				errors++
+
+				if elem.run {
+
+					InstallAvailableCount++
+					InstallRequestedCount++
+
+					attemptout, attempterr := exec.Command("bash", "-cl", elem.installcmd).Output()
+
+					if attempterr != nil {
+						InstallErrorCount++
+						fmt.Println(Red("Error"))
+						fmt.Println(Red("err.Error"))
+						fmt.Println(Red(attempterr.Error()))
+						fmt.Println(Red("string(attemptout)"))
+						fmt.Println(Red(string(attemptout)))
+					} else {
+						InstallPassedCount++
+						// Print the output
+						fmt.Println(Green("Success"))
+						fmt.Println(Green(string(attemptout)))
+					}
+				}
+			} else {
+				ValidatePassedCount++
+
+				// Print the output
+				fmt.Println(Green("Success"))
+				fmt.Println(Green(string(out)))
+			}
 		}
-
-		// Print the output
-		fmt.Println(Green("Success"))
-		fmt.Println(Green(string(out)))
 	}
 	return errors
 
@@ -142,6 +201,19 @@ func main() {
 	fmt.Println("\n")
 
 	validate(InstallItemsCity)
+
+	fmt.Println("\n")
+	fmt.Println(installcmdColor("ValidateAvailableCount = ", ValidateAvailableCount))
+	fmt.Println(validatecmdColor("ValidateRequestedCount = ", ValidateRequestedCount))
+	fmt.Println(successColor("ValidatePassedCount = ", ValidatePassedCount))
+	fmt.Println(errorColor("ValidateErrorCount = ", ValidateErrorCount))
+	fmt.Println("\n")
+
+	fmt.Println(installcmdColor("InstallAvailableCount = ", InstallAvailableCount))
+	fmt.Println(validatecmdColor("InstallRequestedCount = ", InstallRequestedCount))
+	fmt.Println(successColor("InstallPassedCount = ", InstallPassedCount))
+	fmt.Println(errorColor("InstallErrorCount = ", InstallErrorCount))
+
 }
 
 // report how many attempted, passed, failed
