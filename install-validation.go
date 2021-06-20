@@ -75,19 +75,19 @@ var InstallItemsCity = []InstallItems{
 		"sudo apt update"},
 	{true, true, "echo $PATH", "echo $PATH", "echo $PATH"},
 	{false, true, "whoami", "whoami", "whoami"},
-	{false, true, "ansible", "sudo apt install ansible", "ansible --version"},
+	{false, true, "ansible", "sudo apt install -y ansible", "ansible --version"},
 	{false, true, "docker as sudo", "sudo docker run hello-world", "sudo docker run hello-world"},
 	{false, true, "docker as regular-user", "docker run hello-world", "docker run hello-world"},
-	{false, true, "tree", "sudo apt install tree", "tree --version"},
-	{false, true, "ncdu", "sudo apt install ncdu", "ncdu -v"},
+	{false, true, "tree", "sudo apt install -y tree", "tree --version"},
+	{false, true, "ncdu", "sudo apt install -y ncdu", "ncdu -v"},
 	{false, true, "vscode", "code --version", "code --version"},
 	{false, true, "kind", "kind --version", "kind --version"},
 	{false, true, "doctl", "doctl version", "doctl version"},
-	{false, true, "python3", "sudo apt install python3", "python3 --version"},
+	{false, true, "python3", "sudo apt install -y python3", "python3 --version"},
 	{false, true, "see how we are configured with GitHub", "git config --list", "git config --list"},
 	{true, true, "Check that GitHub can be reached via SSH", "ssh -vT git@github.com", "ssh -vT git@github.com"},
-	{true, true, "NodeJS", "sudo apt install node", "node --version"},
-	{true, true, "python", "sudo apt install python", "python --version"},
+	{true, true, "NodeJS", "sudo apt install -y node", "node --version"},
+	{true, true, "python", "sudo apt install -y python", "python --version"},
 
 	{true, true, "kubectl 0", "kubectl version", "kubectl version"},
 	{true, true, "kubectl 1: Update the apt package index and install packages needed to use the Kubernetes apt repository", "sudo apt-get install -y apt-transport-https ca-certificates curl", "kubectl version"},
@@ -254,7 +254,7 @@ func main() {
 // curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
 // echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 // sudo apt update
-// sudo apt install gh
+// sudo apt install -y gh
 
 // kubectl
 // Update the apt package index and install packages needed to use the Kubernetes apt repository:
