@@ -34,11 +34,20 @@ var (
 	Warn  = Yellow
 	Fatal = Red
 
-	descColor        = Teal
-	installcmdColor  = Yellow
-	validatecmdColor = Red
-	successColor     = Green
-	errorColor       = Red
+	descColor             = Teal
+	installcmdColor       = Yellow
+	validatecmdColor      = Red
+	successColor          = Green
+	errorColor            = Red
+	InstallRequestedColor = Magenta
+	InstallErrorColor     = Purple
+	InstallPassedColor    = White
+
+	// fmt.Println(installcmdColor("ValidateAvailableCount = ", ValidateAvailableCount))
+	// fmt.Println(validatecmdColor("ValidateRequestedCount = ", ValidateRequestedCount))
+	// fmt.Println(successColor("ValidatePassedCount = ", ValidatePassedCount))
+	// fmt.Println(errorColor("ValidateErrorCount = ", ValidateErrorCount))
+
 )
 
 // resultingOutputColor = is successColor or errorColor
@@ -209,10 +218,10 @@ func main() {
 	fmt.Println(errorColor("ValidateErrorCount = ", ValidateErrorCount))
 	fmt.Println("\n")
 
-	fmt.Println(installcmdColor("InstallAvailableCount = ", InstallAvailableCount))
-	fmt.Println(validatecmdColor("InstallRequestedCount = ", InstallRequestedCount))
-	fmt.Println(successColor("InstallPassedCount = ", InstallPassedCount))
-	fmt.Println(errorColor("InstallErrorCount = ", InstallErrorCount))
+	fmt.Println(InstallRequestedColor("InstallAvailableCount = ", InstallAvailableCount))
+	fmt.Println(InstallRequestedColor("InstallRequestedCount = ", InstallRequestedCount))
+	fmt.Println(InstallPassedColor("InstallPassedCount = ", InstallPassedCount))
+	fmt.Println(InstallErrorColor("InstallErrorCount = ", InstallErrorCount))
 
 }
 
