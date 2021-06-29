@@ -31,6 +31,8 @@ alias sc='source ~/.bashrc'
 # source <(kubectl completion bash)                     # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 # echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 
+export DENO_INSTALL="/root/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
 
 # Terraform
