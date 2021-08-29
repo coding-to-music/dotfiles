@@ -22,6 +22,10 @@ alias ll='ls -latF'
 alias hi='history'
 alias hs='history 31 | head -n 30'
 alias sc='source ~/.bashrc'
+alias rr='sudo systemctl restart redis.service'
+alias cr='code /etc/redis/redis.conf'
+alias nr='sudo netstat -lnp | grep redis'
+
 # alias kubens='kubectl config set-context --current --namespace ' 
 # alias kubectx='kubectl config use-context ' 
 
@@ -34,6 +38,21 @@ alias sc='source ~/.bashrc'
 export DENO_INSTALL="/root/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
+export MBTA_V2_API_KEY='b59bd77b93e94849a16e21c25ab90349'
+export MEDIA_BUCKET_NAME='media-query-mediabucket-9rbalpyrst24'
+
+export AUTH_GITHUB_CLIENT_ID="688e1673c962fa21e3fb"
+export AUTH_GITHUB_CLIENT_SECRET="a67c69c48ee4ddf4a0769ab1b41d94532222daed"
+# export DOCKER_HOST=ssh://root@162.243.174.58
+
+
+export INFLUX_HOST=http://localhost:8086/
+export INFLUX_TOKEN=o4n-A-Sr5B0r_eDktHaVcNFT6jqM1DSeEUY01Mj26sC7VUZPHEPB2ZqeWnbB7lWfHqgZBZ8KmvHBMFLAwwO5Zw==
+export INFLUX_ORG=myOrg
+export INFLUX_BUCKET="telegraf"
+
+alias python=python3
+alias pip=pip3
 
 # Terraform
 alias tf='terraform'
